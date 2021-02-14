@@ -65,6 +65,14 @@ function addTeamMembers() {
             case "I'd like to add an Engineer":
                 addEngineer();
                 break;
+
+            case "I'd like to add an intern":
+                addIntern();
+                break;
+
+            case "No, that is everyone":
+                compileTeam();
+                break;
         }
     });
 }
