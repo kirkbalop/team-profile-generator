@@ -33,12 +33,12 @@ test('can set name thru getName function', () => {
 
 test('can set id thru getId function', () => {
     const testId = '100';
-    const emp = new Employee(testId);
+    const emp = new Employee('Dave', testId);
     expect(emp.getId()).toBe(testId);
 });
 
 test('can set email thru getEmail function', () => {
     const testEM = 'dave@dave.dave';
-    const emp = new Employee(testEM);
+    const emp = new Employee('dave', '100', testEM);
     expect(emp.getEmail()).toBe(testEM);
 });
