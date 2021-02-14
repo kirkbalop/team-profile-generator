@@ -42,3 +42,9 @@ test('can set email thru getEmail function', () => {
     const emp = new Employee('dave', '100', testEM);
     expect(emp.getEmail()).toBe(testEM);
 });
+
+test("getRole() should return Employee", () => {
+    const testValue = "Employee";
+    const e = new Employee("Dave", 100, "dave@dave.dave");
+    expect(e.getRole()).toBe(testValue);
+});
