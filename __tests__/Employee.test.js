@@ -18,3 +18,27 @@ test('can set id thru constructor arg', () => {
     const emp = new Employee('Dave', idTest);
     expect(emp.id).toBe(idTest);
 });
+
+test('can set email thru constructor arg', () => {
+    const testEM = "dave@dave.dave";
+    const emp = new Employee('Dave', '200', testEM);
+    expect(emp.email).toBe(testEM);
+});
+
+test('can set name thru getName function', () => {
+    const testName = 'Dave';
+    const emp = new Employee(testName);
+    expect(emp.getName()).toBe(testName);
+});
+
+test('can set id thru getId function', () => {
+    const testId = '100';
+    const emp = new Employee(testId);
+    expect(emp.getId()).toBe(testId);
+});
+
+test('can set email thru getEmail function', () => {
+    const testEM = 'dave@dave.dave';
+    const emp = new Employee(testEM);
+    expect(emp.getEmail()).toBe(testEM);
+});
