@@ -6,11 +6,11 @@ This Node application builds an HTML file displaying team information on easy to
 
 ## Demonstration
 
-<img src="./images/demo.gif"> 
+<img src="./images/Demo.gif"> 
 
 ## Screenshot 
 
-<img src='./images/teamkirk.png">
+<img src="./images/teamkirk.png">
 
 ## Tests
 
