@@ -1,9 +1,11 @@
 const inquirer = require('inquirer');
 const fs = require("fs");
+const style = require('./templates/css')
 
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
+const Intern = require('./lib/Intern')
 
 let teamArray = [];
 
@@ -11,12 +13,11 @@ function beginPrompt() {
     inquirer
         .prompt([
         {
-            type: 'input',
-            name: 'teamname',
-            message: "Hello and Welcome to the Team Profile Generator 2021! What is your team's name:"
+            message: "Hello and Welcome to the Team Profile Generator 2021! What is your team's name:",
+            name: 'teamName'
         }
         ])
-        .then(function(teamname){
+        .then(function(data){
             const teamName = this.teamname
             teamArray.push(teamName)
             addManager();
@@ -122,14 +123,84 @@ function addIntern() {
 
         .then(function (data) {
             const name = data.name
-            const id = finalTeamArray.length + 1
+            const id = teamArray.length + 1
             const email = data.email
             const school = data.school
             const teamMember = new Intern(name, id, email, school)
-            finalTeamArray.push(teamMember)
+            teamArray.push(teamMember)
             addTeamMembers()
         });
 
 };
+
+function compileTeam() {
+    console.log("You're team is being compiled!")
+
+    const htmlArray = []
+    const htmlBeginning = `
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>${teamArray[0]}</title>
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+     ${style}
+    </style>
+</head>
+<body>
+    <div class="banner-bar">
+        <h1>${teamArray[0]}</h1>
+    </div>
+    <div class="card-container">
+    `
+    htmlArray.push(htmlBeginning);
+
+    for (let i = 1; i < teamArray.length; i++) {
+        let object = `
+        <div class="member-card">
+            <div class="card-top">
+                <h2>${teamArray[i].name}</h2>
+                <h2>${teamArray[i].title}</h2>
+            </div>
+            <div class="card-bottom">
+                <p>Employee ID: ${teamArray[i].id}</p>
+                <p>Email: <a href="mailto:${teamArray[i].email}">${teamArray[i].email}</a>></p>
+        `
+        if (teamArray[i].officeNumber) {
+            object += `
+            <p>${teamArray[i].officeNumber}</p>
+            `
+        }
+        if (teamArray[i].github) {
+            object += `
+            <p>GitHub: <a href="https://github.com/${teamArray[i].github}">${teamArray[i].github}</a></p>
+            `
+        }
+        if (teamArray[i].school) {
+            object += `
+            <p>School: ${teamArray[i].school}</p>
+            `
+        }
+        object += `
+        </div>
+        </div>
+        `
+        htmlArray.push(object)
+    }
+
+    const htmlEnd = `
+    </div>
+    </body>
+    </html>
+    `
+    htmlArray.push(htmlEnd);
+
+    fs.writeFile(`./generated-html/${teamArray[0]}.html`, htmlArray.join(""), function (err) {
+        
+    })
+}
 
 beginPrompt();
