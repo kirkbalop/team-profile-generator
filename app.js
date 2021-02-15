@@ -10,21 +10,18 @@ const Intern = require('./lib/Intern')
 let teamArray = [];
 
 function beginPrompt() {
-    inquirer
-        .prompt([
+    inquirer.prompt([
         {
-            message: "Hello and Welcome to the Team Profile Generator 2021! What is your team's name:",
-            name: 'teamName'
+            message: "Please enter your team name:",
+            name: "teamname"
         }
-        ])
+    ])
         .then(function(data){
-            const teamName = this.teamname
+            const teamName = data.teamname
             teamArray.push(teamName)
             addManager();
         })
-       
-    
-}
+};
 
 function addManager() {
     inquirer.prompt([
